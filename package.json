@@ -1,0 +1,30 @@
+{
+  "name": "htmp-pdf-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js -e js,ejs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RJosue/HTML-PDF-App.git"
+  },
+  "author": "RJosue",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RJosue/HTML-PDF-App/issues"
+  },
+  "homepage": "https://github.com/RJosue/HTML-PDF-App#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.6"
+  },
+  "dependencies": {
+    "ejs": "^3.1.5",
+    "express": "^4.17.1",
+    "file-saver": "^2.0.5",
+    "html-pdf": "^2.2.0",
+    "http": "0.0.1-security"
+  }
+}
