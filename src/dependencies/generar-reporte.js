@@ -4,6 +4,7 @@ function GenerarReporte() {
     const pdf = require('html-pdf');
     const ejs = require('ejs');
     const path = require('path');
+    const puppeteer = require('puppeteer');
 
     var Options = {
         height: '11in', // allowed units: mm, cm, in, px
@@ -90,6 +91,45 @@ function GenerarReporte() {
             }
         });
     };
+
+    this.createNewPdf = async () => {
+        try {
+            var result = {
+                success: false,
+                noti: {
+                    icon: 'error',
+                    title: 'Ocurrio un error en el generador de reportes',
+                },
+            };
+
+            var fileName = path.join(__dirname, '../../public/reports/reporte-html-pdf-prueba-puppeteer.pdf');
+            var pathFile = path.join(__dirname, '../../templates/html-template.ejs');
+            var htmlRenderTemplate = ejs.render(fs.readFileSync(pathFile, 'utf8'));
+
+            const browser = await puppeteer.launch();
+            const page = await browser.newPage();
+            await page.setContent(htmlRenderTemplate, Options);
+            await page.pdf({ path: fileName, format: 'A4' });
+
+            await browser.close();
+            
+            result.data = {
+                ruta: `/reports/`,
+                name: `reporte-html-pdf-prueba-puppeteer.pdf`,
+                nameReporte: `reporte-html-pdf-prueba-puppeteer.pdf`,
+            };
+
+            result.noti = {
+                icon: 'success',
+                title: 'Reporte generado con exito',
+            };
+
+            return result;
+        } catch (error) {
+            console.log(error);
+            return result;
+        }
+    }
 }
 
 module.exports.GenerarReporte = new GenerarReporte();
